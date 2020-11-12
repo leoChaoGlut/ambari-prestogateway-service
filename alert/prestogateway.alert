@@ -1,0 +1,59 @@
+curl -u ${username}:${password} -H "X-Requested-By: ambari" -X POST http://${ambariServerHost}:8080/api/v1/clusters/${clusterName}/alert_definitions -d '{
+  "AlertDefinition": {
+    "service_name": "KUDU",
+    "component_name": "KUDU-TSERVER",
+    "enabled": true,
+    "interval": 1,
+    "label": "KUDU-TSERVER_HEALTH_CHECK",
+    "name": "KUDU-TSERVER_HEALTH_CHECK",
+    "scope": "ANY",
+    "source": {
+      "reporting": {
+        "ok": {
+          "text": "TCP OK - {0:.4f} response on port {1}"
+        },
+        "warning": {
+          "text": "TCP OK - {0:.3f}s response on port {1}",
+          "value": 1.5
+        },
+        "critical": {
+          "text": "Connection failed: {0} on host {1}:{2}",
+          "value": 5.0
+        }
+      },
+      "type": "WEB",
+      "uri": {
+        "http" : "{{kudu-master/FLAGS_rpc_bind_addresses}}",
+       }
+    }
+  }
+}'
+
+
+curl -u ${username}:${password} -H "X-Requested-By: ambari" -X POST http://${ambariServerHost}:8080/api/v1/clusters/${clusterName}/alert_definitions -d '{
+  "AlertDefinition": {
+    "service_name": "KUDU",
+    "component_name": "KUDU-MASTER",
+    "enabled": true,
+    "interval": 1,
+    "label": "KUDU-MASTER_AUTO_RESTART",
+    "name": "KUDU-MASTER_AUTO_RESTART",
+    "scope": "ANY",
+    "source": {
+      "reporting": {
+        "ok": {
+          "text": "KUDU-MASTER has not been auto-started and is running normally{0}."
+        },
+        "warning": {
+          "text": "KUDU-MASTER has been auto-started {1} times{0}.",
+          "count": 1
+        },
+        "critical": {
+          "text": "KUDU-MASTER has been auto-started {1} times{0}.",
+          "count": 5
+        }
+      },
+      "type": "RECOVERY"
+    }
+  }
+}'
