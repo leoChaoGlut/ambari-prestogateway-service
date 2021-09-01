@@ -32,12 +32,13 @@ class KsqlDB(Script):
         Execute('ps -ef |grep -v grep |grep "presto-gateway.jar"|awk \'{print $2}\'|xargs kill -9')
 
     def start(self, env):
-        from params import presto_gateway
         self.configure(self)
+
+        from params import presto_gateway
         args = ''
         for key, value in presto_gateway.iteritems():
             args += ' --' + key + '=' + value
-        Execute('cd ' + prestoGatewayHome + ' && java -jar presto-gateway.jar ' + args + ' > gateway.out 2>&1 &')
+        Execute('cd ' + prestoGatewayHome + ' && java -jar presto-gateway.jar ' + args + ' > out.pg 2>&1 &')
 
     def status(self, env):
         try:

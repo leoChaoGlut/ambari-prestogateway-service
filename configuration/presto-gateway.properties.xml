@@ -41,4 +41,35 @@
         <value>com.mysql.cj.jdbc.Driver</value>
     </property>
 
+    <property>
+        <name>sdfTimeZoneId</name>
+        <value>GMT-6</value>
+    </property>
+
+    <property>
+        <name>kafka.enabled</name>
+        <value>true</value>
+        <description>
+
+        </description>
+        <value-attributes>
+            <type>value-list</type>
+            <entries>
+                <entry>
+                    <value>true</value>
+                    <label>true</label>
+                </entry>
+                <entry>
+                    <value>false</value>
+                    <label>false</label>
+                </entry>
+            </entries>
+            <selection-cardinality>1</selection-cardinality>
+        </value-attributes>
+    </property>
+    <property>
+        <name>kafka.bootstrap.servers</name>
+        <value>broker1:9092,broker2:9092,broker3:9092</value>
+    </property>
+
 </configuration>
