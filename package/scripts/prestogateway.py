@@ -19,7 +19,7 @@ from resource_management.core.resources.system import Execute
 from resource_management.libraries.script.script import Script
 
 
-class KsqlDB(Script):
+class PrestoGateway(Script):
     def install(self, env):
         Execute('mkdir -p {0}'.format(prestoGatewayHome))
 
@@ -56,4 +56,4 @@ class KsqlDB(Script):
 
 
 if __name__ == '__main__':
-    KsqlDB().execute()
+    PrestoGateway().execute()
